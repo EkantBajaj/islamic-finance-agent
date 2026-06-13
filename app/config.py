@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from decimal import Decimal
 from enum import StrEnum
 from functools import lru_cache
 
@@ -43,6 +44,10 @@ class Settings(BaseSettings):
 
     llm_timeout_seconds: float = Field(default=30.0, gt=0, le=300)
     llm_max_retries: int = Field(default=3, ge=0, le=10)
+    gold_price_url: AnyUrl = Field(
+        default="https://api.gold-api.com/price/XAU"
+    )
+    gold_fallback_price: Decimal = Field(default=Decimal("320.45"), gt=0)
 
     @field_validator("log_level")
     @classmethod
