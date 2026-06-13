@@ -16,6 +16,21 @@ The system is structured as a production-grade asynchronous pipeline that standa
 
 ---
 
+## 1.5 Islamic Finance Glossary
+
+Before diving into the codebase, here is a quick overview of the key Islamic finance concepts used throughout this agent:
+
+| Term | Arabic | Meaning | Project Context |
+| :--- | :--- | :--- | :--- |
+| **Shariah** | شريعة | Islamic law derived from the Quran and Hadith. It governs all aspects of finance. | The foundation of the screening engine to evaluate transactions. |
+| **Halal** | حلال | "Permissible" — anything allowed under Shariah law. | Compliant transactions (e.g., groceries, utility bills) are categorized as `compliant`. |
+| **Haram** | حرام | "Forbidden" — anything prohibited under Shariah law. | Non-compliant transactions (e.g., alcohol, gambling) are flagged as `non_compliant`. |
+| **Riba** | ربا | Usury or interest. Guaranteed returns on loans are strictly prohibited. | The Shariah screening agent flags credit card interest or bank charges containing riba. |
+| **Zakat** | زكاة | An obligatory annual charitable contribution of **2.5% of qualifying wealth** above a minimum threshold. | The Zakat Calculation Agent computes this automatically tracking user's assets. |
+| **Nisab** | نصاب | The minimum wealth threshold above which Zakat becomes obligatory (equivalent to **85g of gold**). | The agent dynamically checks the gold price to evaluate if the user's wealth exceeds Nisab. |
+
+---
+
 ## 2. Design Decisions — What & Why
 
 | Decision | What (Prototype) | Why | What (Production) |
