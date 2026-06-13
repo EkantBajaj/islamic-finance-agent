@@ -1,0 +1,17 @@
+{
+  "groceries": ["supermarket", "convenience_store", "organic_market"],
+  "food_dining": ["restaurant", "fast_food", "coffee_shop", "bakery"],
+  "transport": ["ride_hailing", "public_transit", "fuel", "parking"],
+  "utilities": ["electricity", "water", "internet", "mobile_phone"],
+  "entertainment": ["streaming", "movies", "gaming", "sports_recreation"],
+  "shopping": ["clothing", "electronics", "home_decor", "online_retail"],
+  "personal_care": ["hair_salon", "cosmetics", "spa_wellness"],
+  "health_medical": ["pharmacy", "doctor_clinic", "dental_care"],
+  "education": ["school_fees", "books_supplies", "online_courses"],
+  "travel": ["flights", "hotels", "car_rental", "tours_activities"],
+  "housing": ["rent_payment", "maintenance_repairs", "home_insurance"],
+  "financial_services": ["bank_fees", "investment_deposit", "insurance_premium"],
+  "charity": ["zakat_payment", "sadaqah_donation", "mosque_donation"],
+  "income": ["salary", "freelance_gig", "investment_yield"],
+  "transfers": ["internal_transfer", "peer_to_peer", "remittance"]
+}

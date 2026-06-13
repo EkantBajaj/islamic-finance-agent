@@ -1,0 +1,26 @@
+{
+  "blocklisted_mcc": [
+    "5813",
+    "5921",
+    "7995"
+  ],
+  "keyword_patterns": [
+    "(?i)pub",
+    "(?i)bar",
+    "(?i)beer",
+    "(?i)wine",
+    "(?i)liquor",
+    "(?i)whisky",
+    "(?i)casino",
+    "(?i)betting",
+    "(?i)gambling",
+    "(?i)pork",
+    "(?i)bacon",
+    "(?i)ham",
+    "(?i)adult\\s+entertainment",
+    "(?i)escort",
+    "(?i)nightclub",
+    "(?i)interest\\s+payment",
+    "(?i)loan\\s+interest"
+  ]
+}
