@@ -1,0 +1,49 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "barakah-transaction-agent"
+version = "0.1.0"
+description = "Shariah-compliant transaction intelligence agent"
+readme = "README.md"
+requires-python = ">=3.12,<3.14"
+dependencies = [
+    "alembic>=1.15,<2",
+    "anthropic>=0.49,<1",
+    "asyncpg>=0.30,<1",
+    "fastapi>=0.115,<1",
+    "httpx>=0.28,<1",
+    "langgraph>=0.3,<1",
+    "pydantic>=2.10,<3",
+    "pydantic-settings>=2.8,<3",
+    "python-dotenv>=1.0,<2",
+    "redis>=5.2,<7",
+    "rich>=13.9,<15",
+    "sqlalchemy[asyncio]>=2.0,<3",
+    "structlog>=25.1,<26",
+    "uvicorn[standard]>=0.34,<1",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3,<9",
+    "pytest-asyncio>=0.25,<1",
+    "pytest-cov>=6,<8",
+    "ruff>=0.11,<1",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["app"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.ruff]
+exclude = [".uv-cache", ".venv"]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]

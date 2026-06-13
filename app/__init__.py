@@ -1,0 +1,2 @@
+"""Barakah transaction intelligence application."""
+
