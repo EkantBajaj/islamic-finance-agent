@@ -14,6 +14,10 @@ config = context.config
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
+# Override the URL with settings to support dynamic environments
+from app.config import get_settings
+config.set_main_option("sqlalchemy.url", str(get_settings().database_url))
+
 target_metadata = Base.metadata
 
 
