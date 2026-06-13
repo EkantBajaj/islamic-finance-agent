@@ -53,6 +53,10 @@ async def normalize_node(state: TransactionState) -> dict[str, Any]:
         raw_payload = tx.get("raw_payload", {}) if is_dict else getattr(tx, "raw_payload", {})
         
         tx_id = tx.get("id") if is_dict else getattr(tx, "id", None)
+        external_id = tx.get("external_id") if is_dict else getattr(tx, "external_id", None)
+        if not external_id:
+            external_id = raw_payload.get("external_id")
+            
         account_id = tx.get("account_id") if is_dict else getattr(tx, "account_id", None)
         amount = tx.get("amount") if is_dict else getattr(tx, "amount", Decimal("0"))
         currency = tx.get("currency", "AED") if is_dict else getattr(tx, "currency", "AED")
@@ -73,16 +77,20 @@ async def normalize_node(state: TransactionState) -> dict[str, Any]:
             description = raw_payload.get("description") or ""
 
         tx_date = tx.get("transaction_date") if is_dict else getattr(tx, "transaction_date", None)
-        if not tx_date:
+        if isinstance(tx_date, str):
+            tx_date = datetime.strptime(tx_date[:10], "%Y-%m-%d").date()
+        elif not tx_date:
             raw_date = raw_payload.get("transaction_date")
             if isinstance(raw_date, str):
                 tx_date = datetime.strptime(raw_date[:10], "%Y-%m-%d").date()
             else:
                 tx_date = date.today()
 
+
         mapped.append({
             "id": tx_id or uuid.uuid4(),
             "raw_id": tx_id,
+            "external_id": external_id,
             "account_id": account_id,
             "amount": Decimal(str(amount)),
             "currency": currency,
