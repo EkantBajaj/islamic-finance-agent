@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Barakah AI — Shariah-Compliant Transaction Intelligence</title>
+  </head>
+  <body>
+    <div class="app-container">
+      
+      <!-- HEADER -->
+      <header class="app-header">
+        <div class="logo-container">
+          <div class="logo-icon">🕌</div>
+          <div>
+            <h1 class="logo-text">Barakah AI</h1>
+            <div class="logo-subtext">Transaction Intelligence Agent</div>
+          </div>
+        </div>
+
+        <div class="header-actions">
+          <div class="ws-badge">
+            <span id="ws-status-dot" class="ws-status-dot"></span>
+            <span id="ws-status-text">WS Offline</span>
+          </div>
+
+          <select id="account-select" class="account-selector">
+            <option value="d3b07384-d113-4956-a5cc-9c0211a766bb">Demo Account (Seeded)</option>
+            <option value="f1234567-abcd-ef01-2345-6789abcdef01">E2E Mock Account</option>
+          </select>
+
+          <button id="trigger-pipeline-btn" class="btn-primary">
+            🚀 Trigger Ingestion Pipeline
+          </button>
+        </div>
+      </header>
+
+      <!-- DASHBOARD MAIN GRID -->
+      <main class="dashboard-grid">
+        
+        <!-- PIPELINE VISUALIZER -->
+        <section class="card-glass span-3 fade-in">
+          <h2 class="card-title">
+            <span>🔄 Real-Time Agentic Pipeline Tracker</span>
+            <span id="pipeline-status-label" class="card-title-badge">IDLE</span>
+          </h2>
+          <div class="pipeline-container">
+            <div class="pipeline-connector">
+              <div id="pipeline-progress-bar" class="pipeline-connector-progress"></div>
+            </div>
+
+            <div class="pipeline-node" id="node-ingest">
+              <div class="pipeline-circle"><span>1</span></div>
+              <div class="pipeline-label">Ingest</div>
+              <div class="pipeline-node-time" id="time-ingest">-</div>
+            </div>
+
+            <div class="pipeline-node" id="node-normalize">
+              <div class="pipeline-circle"><span>2</span></div>
+              <div class="pipeline-label">Normalize</div>
+              <div class="pipeline-node-time" id="time-normalize">-</div>
+            </div>
+
+            <div class="pipeline-node" id="node-categorize">
+              <div class="pipeline-circle"><span>3</span></div>
+              <div class="pipeline-label">Categorize</div>
+              <div class="pipeline-node-time" id="time-categorize">-</div>
+            </div>
+
+            <div class="pipeline-node" id="node-shariah_screen">
+              <div class="pipeline-circle"><span>4</span></div>
+              <div class="pipeline-label">Shariah Screen</div>
+              <div class="pipeline-node-time" id="time-shariah_screen">-</div>
+            </div>
+
+            <div class="pipeline-node" id="node-detect_recurrence">
+              <div class="pipeline-circle"><span>5</span></div>
+              <div class="pipeline-label">Recurrence</div>
+              <div class="pipeline-node-time" id="time-detect_recurrence">-</div>
+            </div>
+
+            <div class="pipeline-node" id="node-generate_insights">
+              <div class="pipeline-circle"><span>6</span></div>
+              <div class="pipeline-label">Insights</div>
+              <div class="pipeline-node-time" id="time-generate_insights">-</div>
+            </div>
+
+            <div class="pipeline-node" id="node-zakat_calculation">
+              <div class="pipeline-circle"><span>7</span></div>
+              <div class="pipeline-label">Zakat Run</div>
+              <div class="pipeline-node-time" id="time-zakat_calculation">-</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- FINANCIAL PROFILE -->
+        <section class="card-glass fade-in">
+          <h2 class="card-title">📊 Customer Financial Profile</h2>
+          <div class="compliance-radial-container">
+            <div style="position: relative; display: flex; align-items: center; justify-content: center;">
+              <svg width="160" height="160" class="radial-progress-svg">
+                <!-- SVG Gradient definition for premium gold to emerald look -->
+                <defs>
+                  <linearGradient id="emeraldGoldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#10B981" />
+                    <stop offset="100%" stop-color="#D4A853" />
+                  </linearGradient>
+                </defs>
+                <circle cx="80" cy="80" r="70" class="radial-progress-bg" stroke-width="12"></circle>
+                <circle id="compliance-radial-bar" cx="80" cy="80" r="70" class="radial-progress-value" 
+                        stroke-width="12" stroke-dasharray="440" stroke-dashoffset="440"></circle>
+              </svg>
+              <div class="radial-score-text-container">
+                <span id="compliance-score-val" class="radial-score-num">0%</span>
+                <span class="radial-score-label">Shariah Score</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-row-grid">
+            <div class="info-box">
+              <div class="info-box-val income" id="avg-income-val">AED 0</div>
+              <div class="info-box-lbl">Avg Income</div>
+            </div>
+            <div class="info-box">
+              <div class="info-box-val spend" id="avg-spend-val">AED 0</div>
+              <div class="info-box-lbl">Avg Outflow</div>
+            </div>
+          </div>
+
+          <div class="category-bars" id="category-distribution-container">
+            <div class="category-bar-item">
+              <div class="category-bar-header">
+                <span class="category-bar-label">Loading categories...</span>
+                <span class="category-bar-amount">0%</span>
+              </div>
+              <div class="category-bar-track">
+                <div class="category-bar-fill" style="width: 0%"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ZAKAT CALCULATOR -->
+        <section class="card-glass fade-in">
+          <h2 class="card-title">
+            <span>⚖️ Zakat Obligation Ledger</span>
+            <span class="card-title-badge">Lunar Year</span>
+          </h2>
+          
+          <div class="zakat-due-banner">
+            <div class="zakat-due-banner-val" id="zakat-due-val">AED 0.00</div>
+            <div class="info-box-lbl">Annual Zakat Obligation</div>
+          </div>
+
+          <form id="zakat-form" class="zakat-calculator-form">
+            <div class="form-group">
+              <label for="zakat-cash">Liquid Cash in Hand/Bank (AED)</label>
+              <input type="number" id="zakat-cash" class="form-input" value="100000" min="0" step="100">
+            </div>
+            
+            <div class="form-group">
+              <label for="zakat-savings">Savings & Silver/Gold Values (AED)</label>
+              <input type="number" id="zakat-savings" class="form-input" value="120000" min="0" step="100">
+            </div>
+            
+            <div class="form-group">
+              <label for="zakat-investments">Active Investment Assets (AED)</label>
+              <input type="number" id="zakat-investments" class="form-input" value="170000" min="0" step="100">
+            </div>
+
+            <div class="form-group">
+              <label for="zakat-debts">Immediate Debts & Liabilities (AED)</label>
+              <input type="number" id="zakat-debts" class="form-input" value="30000" min="0" step="100">
+            </div>
+
+            <div class="form-group">
+              <label for="gold-price-per-gram">Gold Price per Gram (AED)</label>
+              <input type="number" id="gold-price-per-gram" class="form-input" placeholder="Loading price..." min="0" step="0.01">
+            </div>
+          </form>
+        </section>
+
+        <!-- SHARIAH SCREENING SUMMARY -->
+        <section class="card-glass fade-in">
+          <h2 class="card-title">🛡️ Shariah Screening Audit</h2>
+          
+          <div class="shariah-stats">
+            <div class="shariah-stat-pill compliant">
+              <div id="shariah-compliant-count">0</div>
+              <div style="font-size: 0.75rem; margin-top: 2px;">Compliant</div>
+            </div>
+            <div class="shariah-stat-pill non-compliant">
+              <div id="shariah-non-compliant-count">0</div>
+              <div style="font-size: 0.75rem; margin-top: 2px;">Haram</div>
+            </div>
+            <div class="shariah-stat-pill review">
+              <div id="shariah-review-count">0</div>
+              <div style="font-size: 0.75rem; margin-top: 2px;">Review</div>
+            </div>
+          </div>
+
+          <h3 style="font-size: 0.95rem; font-weight: 600; margin-bottom: var(--space-md); color: var(--color-text-secondary);">
+            Flagged Transactions Log
+          </h3>
+          
+          <div class="flagged-list" id="flagged-transactions-list">
+            <div style="color: var(--color-text-muted); font-size: 0.85rem; text-align: center; padding: var(--space-md);">
+              No non-compliant transactions flagged.
+            </div>
+          </div>
+        </section>
+
+        <!-- PFM FINANCIAL INSIGHTS -->
+        <section class="card-glass span-3 fade-in">
+          <h2 class="card-title">💡 Shariah & Financial PFM Insights</h2>
+          <div class="insights-feed" id="insights-feed-container">
+            <div style="color: var(--color-text-muted); font-size: 0.9rem; text-align: center; padding: var(--space-md);">
+              No financial insights available. Please run the pipeline.
+            </div>
+          </div>
+        </section>
+
+        <!-- ENRICHED TRANSACTION FEED -->
+        <section class="card-glass span-3 fade-in">
+          <h2 class="card-title">🏦 Enriched Ledger Feed</h2>
+          
+          <div class="filters-bar">
+            <select id="filter-category" class="filter-select">
+              <option value="">All Categories</option>
+              <option value="utilities">Utilities</option>
+              <option value="groceries">Groceries</option>
+              <option value="food_dining">Food & Dining</option>
+              <option value="entertainment">Entertainment</option>
+              <option value="transport">Transport</option>
+              <option value="financial_services">Financial Services</option>
+              <option value="education">Education</option>
+              <option value="other">Other</option>
+            </select>
+
+            <select id="filter-shariah" class="filter-select">
+              <option value="">All Compliance Statuses</option>
+              <option value="compliant">Compliant Only</option>
+              <option value="non_compliant">Haram Only</option>
+              <option value="review">Needs Review Only</option>
+            </select>
+          </div>
+
+          <div class="transaction-table-wrapper">
+            <table class="transaction-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Merchant / description</th>
+                  <th>Category</th>
+                  <th>Shariah Audit</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+              <tbody id="transaction-table-body">
+                <tr>
+                  <td colspan="5" style="text-align: center; color: var(--color-text-muted); padding: var(--space-xl);">
+                    Loading transaction feed...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+      </main>
+    </div>
+
+    <!-- DETAIL MODAL -->
+    <div id="detail-modal-overlay" class="detail-modal-overlay">
+      <div class="detail-modal">
+        <button id="detail-close-btn" class="detail-close-btn">&times;</button>
+        <h3 style="font-size: 1.25rem; font-weight: 600; border-bottom: 1px solid var(--color-border); padding-bottom: var(--space-sm); color: var(--color-accent-light);">
+          🔍 Transaction Audit Details
+        </h3>
+        
+        <div class="detail-grid">
+          <div class="detail-item">
+            <label>Transaction ID</label>
+            <span id="detail-id">-</span>
+          </div>
+          <div class="detail-item">
+            <label>Enrichment Method</label>
+            <span id="detail-method">-</span>
+          </div>
+          <div class="detail-item">
+            <label>Category Confidence</label>
+            <span id="detail-cat-confidence">-</span>
+          </div>
+          <div class="detail-item">
+            <label>Shariah Confidence</label>
+            <span id="detail-shariah-confidence">-</span>
+          </div>
+          <div class="detail-item" style="grid-column: span 2;">
+            <label>Shariah Audit Flags</label>
+            <span id="detail-shariah-flags">-</span>
+          </div>
+          <div class="detail-item" style="grid-column: span 2;">
+            <label>Raw Ingestion Payload</label>
+            <pre id="detail-raw-payload" class="detail-raw-payload"></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
