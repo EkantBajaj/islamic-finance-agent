@@ -1,6 +1,6 @@
 # 🏦 Barakah AI — Shariah-Compliant Transaction Intelligence Agent
 
-> **Prototype Design Document & Codebase** — Demonstrating production-grade AI system design for the **AI Engineer L3 (Senior)** role at [Barakah](https://barakah.ai)
+> **Prototype Design Document & Codebase**
 
 [![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/release/python-3120/)
 [![Test Status](https://img.shields.io/badge/tests-74%20passed-green.svg)](https://github.com/EkantBajaj/islamic-finance-agent)
